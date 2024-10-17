@@ -7,6 +7,8 @@ author:
 lightbox: true
 format:
   html:
+    anchor-sections: true
+    smooth-scroll: true
     embed-resources: true
     theme:
       light: flatly
@@ -17,15 +19,15 @@ editor: visual
 
 ## Why code based analytics? Because it's awesome!
 
-Code based analytics makes your life so much easier as a developer. 
+Code based analytics makes your life so much easier as a developer.
 
-Analytics as code lets you: 
+Analytics as code lets you:
 
-- Leverage the best of what the open source community is making
-- Control everything that is displayed, no more pixel paranoia
-- Version control for backups and collaboration
-- Write [tests](https://testthat.r-lib.org/) to ensure performance
-- Reproduceability by auditing the package environment with [renv](https://rstudio.github.io/renv/articles/renv.html)
+-   Leverage the best of what the open source community is making
+-   Control everything that is displayed, no more pixel paranoia
+-   Version control for backups and collaboration
+-   Write [tests](https://testthat.r-lib.org/) to ensure performance
+-   Reproduceability by auditing the package environment with [renv](https://rstudio.github.io/renv/articles/renv.html)
 
 <center>
 
@@ -41,15 +43,15 @@ Analytics as code lets you:
 
 <!-- ![](https://raw.githubusercontent.com/rstudio/hex-stickers/ce526bb5880f348c6970f44f9d8001eb504c4cf6/SVG/quarto.svg){width="25%"} -->
 
-### What is Quarto? 
+### What is Quarto?
 
 Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see: <https://quarto.org>.
 
-- Check out examples in the [gallery](https://quarto.org/docs/gallery/).
+-   Check out examples in the [gallery](https://quarto.org/docs/gallery/).
 
-- Check out the [awesome list](https://github.com/mcanouil/awesome-quarto).
+-   Check out the [awesome list](https://github.com/mcanouil/awesome-quarto).
 
-### Running Code in Quarto 
+### Running Code in Quarto
 
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
 
@@ -66,11 +68,15 @@ You can add options to executable code like this
 
 The `echo: false` option disables the printing of code (only output is displayed).
 
+### Re-use branding / theme-ing
+
+Quarto templates: <https://quarto.org/docs/extensions/starter-templates.html>
+
 ## Loading packages
 
-Build on what the open source community has created by using community built packages. 
+Build on what the open source community has created by using community built packages.
 
-Load packages into your library with: 
+Load packages into your library with:
 
 ```{r}
 #| warning: false
@@ -91,13 +97,13 @@ library(chattr)
 library(httr)
 ```
 
-## Connecting to data 
+## Connecting to data
 
-Connecting to data can either be pre-configured by an admin, or done manually by putting in the connection string. 
+Connecting to data can either be pre-configured by an admin, or done manually by putting in the connection string.
 
-For example, for connecting to a data source like `redshift` you could use: 
+For example, for connecting to a data source like `redshift` you could use:
 
-```r
+``` r
 library(odbc)
 
 con <- DBI::dbConnect(odbc::odbc(),
@@ -109,15 +115,14 @@ con <- DBI::dbConnect(odbc::odbc(),
                       Port         = 5439)
 ```
 
-Reference and useful website with examples for other data types: <https://solutions.posit.co/connections/db/databases/redshift/index.html#driver-options> 
+Reference and useful website with examples for other data types: <https://solutions.posit.co/connections/db/databases/redshift/index.html#driver-options>
 
-### Displaying data 
+### Displaying data
 
-::: {.panel-tabset}
-
+::: panel-tabset
 #### DT with download
 
-Or use it to give your users the ability to download the data by copying it to their clipboard: 
+Or use it to give your users the ability to download the data by copying it to their clipboard:
 
 ```{r}
 iris %>%
@@ -130,7 +135,7 @@ iris %>%
 
 #### DT with formatting
 
-Use a package like DT to do something cool, like preview data with coloring and formatting: 
+Use a package like DT to do something cool, like preview data with coloring and formatting:
 
 ```{r}
 datatable(iris) %>% 
@@ -155,12 +160,11 @@ datatable(iris) %>%
     )
   )
 ```
-
 :::
 
 ### "Pin" that data so others can access it, or to speed up apps
 
-Pin your dataset to the Connect server: 
+Pin your dataset to the Connect server:
 
 ```{r}
 board <- board_connect(auth = "envvar")
@@ -168,31 +172,31 @@ board <- board_connect(auth = "envvar")
 board %>% pin_write(iris, "lisa.anders/iris_dataset", type = "rds", force_identical_write = TRUE)
 ```
 
-Read it back with: 
+Read it back with:
 
-```r
+``` r
 board <- board_connect(auth = "envvar")
 
 iris_data_back <-board %>% pin_read("lisa.anders/iris_dataset")
 ```
 
-When deployed to Connect, an API key will be automatically added into the environment. 
+When deployed to Connect, an API key will be automatically added into the environment.
 
 [Pin package](https://pins.rstudio.com/)
 
-### Validate data 
+### Validate data
 
 Check your data for errors or inconsistencies with the [pointblank package](https://rstudio.github.io/pointblank/)
 
-## Creating visualizations 
+## Creating visualizations
 
 Create visualizations using the most popular packge, [ggplot2](https://ggplot2.tidyverse.org/)
 
 Make them interactive with [plotly](https://plotly.com/r/)
 
-
 ```{r}
 #| echo: false
+#| warning: false
 #| layout-ncol: 3
 #| fig-cap: 
 #|   - "Plot 1"
@@ -220,9 +224,10 @@ start <- "2020-10-01"
 end <- "2021-01-01"
 
 # Get the data
-getSymbols("^GSPC", 
+symbol <- getSymbols("^GSPC", 
            from = start, to = end,
-           src = "yahoo") 
+           src = "yahoo",
+           warnings = FALSE) 
 
 # Plot the data
 chartSeries(GSPC,
@@ -232,20 +237,23 @@ chartSeries(GSPC,
                       "addVo()",
                       "addEMA(20)",
                       "addEMA(10, col = 2)"))
-
 ```
 
 Amazing resource for creating different types of plots [here](https://r-graph-gallery.com/)
 
-## Make LLM's 
+## Make LLM's
+
+<center>![](https://i1.wp.com/www.business-science.io/assets/080_chattr_diagram.jpg?w=578&ssl=1){width="80%"}</center>
 
 Make large language models with [chattr](https://mlverse.github.io/chattr/)
 
-We can even use that model inside your editor to provide coding assistance:  <https://blogs.rstudio.com/ai/posts/2024-04-04-chat-with-llms-using-chattr/> 
+We can even use that model inside your editor to provide coding assistance: <https://blogs.rstudio.com/ai/posts/2024-04-04-chat-with-llms-using-chattr/>
 
-```r
-# Add your API Key from OpenAI, as needed
+``` r
+# Add your API Keys, as needed
 key=Sys.getenv("OPENAI_API_KEY")
+host=Sys.getenv("DATABRICKS_HOST")
+token=Sys.getenv("DATABRICKS_TOKEN")
 
 # Set configs
 chattr::chattr_defaults(max_data_files = 0)
@@ -258,9 +266,7 @@ chattr_use(
   path = "[path to compiled program]",
   model = "[path to model]"
   )
-
-# Test the connection 
-chattr_test()
+chattr_use("databricks-meta-llama3-70b")
 
 # To see what chattr will send to the model, set the preview argument to TRUE
 chattr(preview = TRUE)
@@ -270,11 +276,12 @@ chattr("how do I remove the legend from a ggplot?")
 
 # Run the app
 chattr::chattr_app()
+
+# Test the connection 
+chattr_test()
 ```
 
 <center>
-
-![](https://i1.wp.com/www.business-science.io/assets/080_chattr_diagram.jpg?w=578&ssl=1){width="80%"}
 
 ::: {.citation style="font-size: 16px"}
 Image from r-bloggers article ["How to Get ChatGPT in R with chattr"](https://www.r-bloggers.com/2024/05/how-to-get-chatgpt-in-r-with-chattr/)
@@ -284,23 +291,36 @@ Image from r-bloggers article ["How to Get ChatGPT in R with chattr"](https://ww
 
 ## Make ML models
 
-Make M models with [vetiver](https://rstudio.github.io/vetiver-r/)
+<center>![](https://vetiver.posit.co/images/ml_ops_cycle.png){width="80%"}</center>
 
-Example: [Bike predict](https://solutions.posit.co/gallery/bike_predict/index.html) 
+Make Machine Learning models with [vetiver](https://rstudio.github.io/vetiver-r/)
 
-## Make an interactive application with Shiny 
+Example: [Bike predict](https://solutions.posit.co/gallery/bike_predict/index.html)
+
+<center>
+
+::: {.citation style="font-size: 16px"}
+Image from [vetiver package](https://rstudio.github.io/vetiver-r/)
+:::
+
+</center>
+
+## Make an interactive application with Shiny
 
 <!-- ![](https://rstudio.github.io/shiny/reference/figures/logo.png){width="25%"} -->
 
-Make interactive applications that will give each visitor a personalized experience using [shiny](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html). 
+Make interactive applications that will give each visitor a personalized experience using [shiny](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html).
 
-Low code option: [shinyuieditor](shinyuieditor) 
+Low code option: [shinyuieditor](shinyuieditor)
 
-Examples in the Shiny Gallery: <https://shiny.posit.co/r/gallery/> 
+Examples in the Shiny Gallery: <https://shiny.posit.co/r/gallery/>
 
-## End-to-end example: Ferryland 
+### Re-use branding / theme-ing
 
-Ferryland git repo with workshop materials: <https://github.com/posit-conf-2024/ds-workflows-r> 
+Shinythemes: <https://rstudio.github.io/shinythemes/>
 
-Ferryland [deployed materials](https://pub.current.posit.team/ferries-overview/) and [deployed materials landing page](https://pub.current.posit.team/connect/#/apps/f6b2cd8d-5bd7-42ba-82cb-c25078918043/access/57) (currently only available to Posit employees). 
+## End-to-end example: Ferryland
 
+Ferryland git repo with workshop materials: <https://github.com/posit-conf-2024/ds-workflows-r>
+
+Ferryland [deployed materials](https://pub.current.posit.team/ferries-overview/) and [deployed materials publisher's page](https://pub.current.posit.team/connect/#/apps/f6b2cd8d-5bd7-42ba-82cb-c25078918043/access/57) (currently only available to Posit employees).
