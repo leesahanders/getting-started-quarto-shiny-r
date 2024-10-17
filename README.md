@@ -69,5 +69,6 @@ library(rsconnect)
 
 setwd("C:/Users/LisaAnders/Documents/git/quarto-for-reproducible-reporting-demo/content-examples/report-mermaid-diagrams")
 rsconnect::writeManifest()
+rsconnect::writeManifest(appDir = getwd(), appPrimaryDoc = "getting-started.qmd", appMode="quarto-static")
 ```
 
