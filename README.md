@@ -3,7 +3,7 @@
 > **Warning**
 > This is part of a repository that is prone to  Changes and overhauls will happen without notice, but feel free to reach out with any questions/corrections/or help needs at lisamaeanders@gmail.com
 
-**Access the deployed content at: <https://pub.demo.posit.team/getting-started-quarto-shiny-r/>**
+**Access the deployed content at: <https://pub.demo.posit.team/public/getting-started-quarto-shiny-r/>**
 
 ## Resources 
 
